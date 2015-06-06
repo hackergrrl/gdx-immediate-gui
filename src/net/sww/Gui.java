@@ -1,3 +1,9 @@
+/*
+ * Inspired by ImGui
+ *
+ * https://github.com/ocornut/imgui/blob/master/imgui.h
+ */
+
 package net.sww;
 
 import com.badlogic.gdx.Gdx;
@@ -58,5 +64,15 @@ public class Gui {
     public static void endWindow() {
         currentWindow.end(font);
         windows.add(currentWindow);
+
+        currentWindow = null;
+    }
+
+    public static void label(String text) {
+        Label label = new Label(text);
+        label.size.y = font.getBounds(text).height;
+        label.size.x = font.getBounds(text).width + 6;
+        System.out.println(label.size.x);
+        currentWindow.contents.add(label);
     }
 }
