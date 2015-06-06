@@ -47,15 +47,16 @@ public class Gui {
         window.title = title;
         int x = 10;
         for (Window win : windows) {
-            x += win.size.x + 10;
+            x += win.size.x + 20;
         }
-        window.size = new Vector2(100, 300);
-        window.pos = new Vector2(x, Gdx.graphics.getHeight() - 10 - window.size.y);
+        window.size = new Vector2(100, 20);
+        window.pos = new Vector2(x, 10);
 
         currentWindow = window;
     }
 
     public static void endWindow() {
+        currentWindow.end(font);
         windows.add(currentWindow);
     }
 }
