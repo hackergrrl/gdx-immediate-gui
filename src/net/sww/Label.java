@@ -22,7 +22,7 @@ public class Label extends Widget {
         Vector2 pos = new Vector2(this.pos.x, Gdx.graphics.getHeight() - this.pos.y);
 
         batch.begin();
-        font.draw(batch, text, pos.x + marginLeft, pos.y - marginTop);
+        font.draw(batch, text, pos.x + marginLeft, pos.y - marginBottom);
         batch.end();
     }
 }

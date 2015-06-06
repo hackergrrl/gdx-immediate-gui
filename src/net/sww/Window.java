@@ -13,11 +13,16 @@ import java.util.List;
 public class Window extends Widget {
     public final int TITLE_HEIGHT = 17;
     public String title;
-    public List<Widget> contents;
     public Vector2 preferredSize = new Vector2();
+    private List<Widget> contents;
 
     public Window() {
         contents = new LinkedList<Widget>();
+    }
+
+    public void addChild(Widget widget) {
+        contents.add(widget);
+        widget.parent = this;
     }
 
     @Override
@@ -58,7 +63,7 @@ public class Window extends Widget {
         for (Widget widget : contents) {
             widget.pos.y = y;
             widget.pos.x = pos.x;
-            size.x = Math.max(widget.computeSize().x, Math.max(size.x, preferredSize.x));
+            size.x = Math.max(widget.size.x, Math.max(size.x, preferredSize.x));
             y += widget.computeSize().y;
         }
 

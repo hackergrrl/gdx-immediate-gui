@@ -7,6 +7,7 @@
 package net.sww;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -80,7 +81,13 @@ public class Gui {
         Label label = new Label(text);
         label.size.y = font.getBounds(text).height;
         label.size.x = font.getBounds(text).width + 6;
-        System.out.println(label.size.x);
-        currentWindow.contents.add(label);
+        currentWindow.addChild(label);
+    }
+
+    public static void progressBar(String caption, Color colour, float value, float max, boolean showPercent) {
+        ProgressBar bar = new ProgressBar(caption, colour, value, max, showPercent);
+        bar.size.x = currentWindow.size.x;
+        bar.parent = currentWindow;
+        currentWindow.addChild(bar);
     }
 }

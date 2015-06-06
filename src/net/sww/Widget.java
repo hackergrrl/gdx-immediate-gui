@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class Widget {
 
+    public Widget parent;
+
     public Vector2 pos = new Vector2();
     public Vector2 size = new Vector2();
     public float marginLeft = 3, marginTop = 3, marginRight = 3,marginBottom = 3;
