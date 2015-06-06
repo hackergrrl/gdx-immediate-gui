@@ -14,6 +14,7 @@ public class Window extends Widget {
     public final int TITLE_HEIGHT = 17;
     public String title;
     public List<Widget> contents;
+    public Vector2 preferredSize = new Vector2();
 
     public Window() {
         contents = new LinkedList<Widget>();
@@ -51,13 +52,13 @@ public class Window extends Widget {
     }
 
     public void end(BitmapFont font) {
-        size.x = font.getBounds(title).width + 10;
+        size.x = Math.max(font.getBounds(title).width + 10, preferredSize.x);
 
         float y = pos.y + TITLE_HEIGHT + marginTop;
         for (Widget widget : contents) {
             widget.pos.y = y;
             widget.pos.x = pos.x;
-            size.x = Math.max(widget.computeSize().x, size.x);
+            size.x = Math.max(widget.computeSize().x, Math.max(size.x, preferredSize.x));
             y += widget.computeSize().y;
         }
 

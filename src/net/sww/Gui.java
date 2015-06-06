@@ -68,6 +68,14 @@ public class Gui {
         currentWindow = null;
     }
 
+    public static void setWindowWidth(int w) {
+        currentWindow.preferredSize.x = w;
+    }
+
+    public static void setWindowHeight(int h) {
+        currentWindow.preferredSize.y = h;
+    }
+
     public static void label(String text) {
         Label label = new Label(text);
         label.size.y = font.getBounds(text).height;
