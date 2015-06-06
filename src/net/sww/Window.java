@@ -14,6 +14,7 @@ public class Window extends Widget {
     public final int TITLE_HEIGHT = 17;
     public String title;
     public Vector2 preferredSize = new Vector2();
+    public Color titleColour = Color.TEAL;
     private List<Widget> contents;
 
     public Window() {
@@ -39,7 +40,7 @@ public class Window extends Widget {
 
         // Titlebar
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.TEAL);
+        shapeRenderer.setColor(titleColour);
         shapeRenderer.rect(pos.x, pos.y + size.y - TITLE_HEIGHT, size.x, TITLE_HEIGHT);
         shapeRenderer.end();
 

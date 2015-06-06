@@ -77,6 +77,10 @@ public class Gui {
         currentWindow.preferredSize.y = h;
     }
 
+    public static void setWindowTitleColour(Color colour) {
+        currentWindow.titleColour = colour;
+    }
+
     public static void label(String text) {
         Label label = new Label(text);
         label.size.y = font.getBounds(text).height;
