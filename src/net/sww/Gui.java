@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.LinkedList;
@@ -93,5 +94,20 @@ public class Gui {
         bar.size.x = currentWindow.size.x;
         bar.parent = currentWindow;
         currentWindow.addChild(bar);
+    }
+
+    public static boolean button(String caption, Color colour) {
+        Button btn = new Button(caption, colour);
+        btn.size.x = currentWindow.size.x;
+        btn.parent = currentWindow;
+        currentWindow.addChild(btn);
+
+        Rectangle rect = new Rectangle(
+                btn.pos.x + btn.marginLeft,
+                btn.pos.y - btn.marginBottom - btn.size.y,
+                btn.size.x - btn.marginLeft - btn.marginRight,
+                btn.size.y);
+        System.out.println(rect);
+        return Gdx.input.isButtonPressed(0) && rect.contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
     }
 }
