@@ -15,14 +15,12 @@ public class ProgressBar extends Widget {
     private String caption;
 
     public ProgressBar(String caption, Color colour, float value, float max, boolean showPercent) {
+        super(new Vector2(100, 16));
         this.caption = caption;
         this.colour = colour;
         this.value = value;
         this.showPercent = showPercent;
         this.max = max;
-        marginLeft = marginRight = 4;
-        marginTop = marginBottom = 4;
-        size.y = 12;
     }
 
     @Override
@@ -31,26 +29,28 @@ public class ProgressBar extends Widget {
         Vector2 pos = new Vector2(this.pos.x, Gdx.graphics.getHeight() - this.pos.y);
         size.x = parent.size.x;
 
+        float fontHeight = font.getBounds(caption).height;
+
         float x = 0;
         if (caption != null && !caption.isEmpty()) {
             batch.begin();
-            font.draw(batch, caption, pos.x + marginLeft, pos.y - marginTop);
+            font.draw(batch, caption, pos.x + horizontalMargin, pos.y - verticalMargin - size.y/2 + fontHeight/2);
             batch.end();
             x += font.getBounds(caption).width + 16;
         }
 
-        float w = size.x - marginLeft - marginRight - x;
+        float w = size.x - verticalMargin * 2 - x;
         w *= (value / max);
         shapeRenderer.setColor(colour);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.rect(x + pos.x + marginLeft, pos.y - marginBottom - size.y, w, size.y);
+        shapeRenderer.rect(x + pos.x + horizontalMargin, pos.y - verticalMargin - size.y, w, size.y);
         shapeRenderer.end();
 
         if (showPercent) {
             String percent = ((int)(value / max * 100)) + "%";
-            float xPos = (x + pos.x + marginLeft + w/2) - font.getBounds(percent).width / 2;
+            float xPos = (x + pos.x + horizontalMargin + w/2) - font.getBounds(percent).width / 2;
             batch.begin();
-            font.draw(batch, percent, xPos, pos.y - marginTop - 1);
+            font.draw(batch, percent, xPos, pos.y - verticalMargin - size.y/2 + fontHeight/2);
             batch.end();
         }
     }

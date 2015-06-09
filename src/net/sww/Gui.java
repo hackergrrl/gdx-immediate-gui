@@ -28,6 +28,8 @@ public class Gui {
 
     private static List<Window> windows = new LinkedList<Window>();
 
+    private static int buttonPressedFrameCount;
+
     public static void init(SpriteBatch spriteBatch, ShapeRenderer shapeRenderer) {
         Gui.shapeRenderer = shapeRenderer;
         Gui.spriteBatch = spriteBatch;
@@ -39,9 +41,19 @@ public class Gui {
         generator.dispose(); // don't forget to dispose to avoid memory leaks!
     }
 
+    public static Window getCurrentWindow() {
+        return currentWindow;
+    }
+
 	public static void beginFrame() {
         currentWindow = null;
         windows.clear();
+
+        if (Gdx.input.isButtonPressed(0)) {
+            buttonPressedFrameCount++;
+        } else {
+            buttonPressedFrameCount = 0;
+        }
 	}
 
 	public static void endFrame() {
@@ -51,14 +63,14 @@ public class Gui {
 	}
 
     public static void beginWindow(String title) {
-        Window window = new Window();
-        window.title = title;
+        // TODO(sww): remove this hack?
         int x = 10;
         for (Window win : windows) {
             x += win.size.x + 20;
         }
-        window.size = new Vector2(100, 20);
-        window.pos = new Vector2(x, 10);
+
+        Window window = new Window(new Vector2(x, 10), new Vector2(100, 20));
+        window.title = title;
 
         currentWindow = window;
     }
@@ -71,11 +83,11 @@ public class Gui {
     }
 
     public static void setWindowWidth(int w) {
-        currentWindow.preferredSize.x = w;
+        currentWindow.size.x = w;
     }
 
     public static void setWindowHeight(int h) {
-        currentWindow.preferredSize.y = h;
+        currentWindow.size.y = h;
     }
 
     public static void setWindowTitleColour(Color colour) {
@@ -84,30 +96,32 @@ public class Gui {
 
     public static void label(String text) {
         Label label = new Label(text);
-        label.size.y = font.getBounds(text).height;
-        label.size.x = font.getBounds(text).width + 6;
-        currentWindow.addChild(label);
+        for (int i=0; i < label.lines.length; i++) {
+            label.size.x = Math.max(label.size.x, font.getBounds(label.lines[i]).width + 10);
+        }
+        label.size.y = font.getBounds(text).height * label.lines.length + Label.LINE_PADDING * (label.lines.length - 1);
+        label.pos = currentWindow.getCursorPos();
+        label.size = currentWindow.addChild(label);
     }
 
     public static void progressBar(String caption, Color colour, float value, float max, boolean showPercent) {
         ProgressBar bar = new ProgressBar(caption, colour, value, max, showPercent);
         bar.size.x = currentWindow.size.x;
-        bar.parent = currentWindow;
+        bar.pos = currentWindow.getCursorPos();
         currentWindow.addChild(bar);
     }
 
     public static boolean button(String caption, Color colour) {
         Button btn = new Button(caption, colour);
         btn.size.x = currentWindow.size.x;
-        btn.parent = currentWindow;
-        currentWindow.addChild(btn);
+        btn.pos = currentWindow.getCursorPos();
+        btn.size = currentWindow.addChild(btn);
 
         Rectangle rect = new Rectangle(
-                btn.pos.x + btn.marginLeft,
-                btn.pos.y - btn.marginBottom - btn.size.y,
-                btn.size.x - btn.marginLeft - btn.marginRight,
-                btn.size.y);
-        System.out.println(rect);
-        return Gdx.input.isButtonPressed(0) && rect.contains(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+                btn.pos.x,
+                btn.pos.y,
+                btn.size.x + btn.size.x,
+                btn.size.y + btn.size.y);
+        return buttonPressedFrameCount == 1 && rect.contains(Gdx.input.getX(), Gdx.input.getY());
     }
 }

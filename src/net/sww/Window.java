@@ -7,23 +7,27 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class Window extends Widget {
     public final int TITLE_HEIGHT = 17;
     public String title;
-    public Vector2 preferredSize = new Vector2();
     public Color titleColour = Color.TEAL;
-    private List<Widget> contents;
 
-    public Window() {
-        contents = new LinkedList<Widget>();
+    private Vector2 cursor = new Vector2();
+
+    public Window(Vector2 pos, Vector2 size) {
+        super(size);
+        this.pos = pos;
+        cursor = new Vector2(pos.x + horizontalMargin, pos.y + verticalMargin + TITLE_HEIGHT);
     }
 
-    public void addChild(Widget widget) {
-        contents.add(widget);
-        widget.parent = this;
+    public Vector2 getCursorPos() {
+        return cursor.cpy();
+    }
+
+    public Vector2 addChild(Widget widget) {
+        cursor.y += widget.computeSize().y;
+        size.x = Math.max(widget.size.x, size.x);
+        return new Vector2(size.x, widget.size.y);
     }
 
     @Override
@@ -35,13 +39,13 @@ public class Window extends Widget {
         // Body
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.DARK_GRAY);
-        shapeRenderer.rect(pos.x, pos.y, size.x, size.y);
+        shapeRenderer.rect(pos.x, pos.y, size.x + horizontalMargin * 2, size.y);
         shapeRenderer.end();
 
         // Titlebar
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(titleColour);
-        shapeRenderer.rect(pos.x, pos.y + size.y - TITLE_HEIGHT, size.x, TITLE_HEIGHT);
+        shapeRenderer.rect(pos.x, pos.y + size.y - TITLE_HEIGHT, size.x + horizontalMargin * 2, TITLE_HEIGHT);
         shapeRenderer.end();
 
         // Title
@@ -58,16 +62,15 @@ public class Window extends Widget {
     }
 
     public void end(BitmapFont font) {
-        size.x = Math.max(font.getBounds(title).width + 10, preferredSize.x);
+        size.x = Math.max(font.getBounds(title).width + horizontalMargin * 2, size.x);
 
-        float y = pos.y + TITLE_HEIGHT + marginTop;
+        float y = pos.y + TITLE_HEIGHT + verticalMargin;
         for (Widget widget : contents) {
-            widget.pos.y = y;
-            widget.pos.x = pos.x;
-            size.x = Math.max(widget.size.x, Math.max(size.x, preferredSize.x));
+//            widget.pos.y = y;
+//            widget.pos.x = pos.x;
             y += widget.computeSize().y;
         }
 
-        size.y = y - pos.y + marginTop + marginBottom;
+        size.y = y - pos.y;
     }
 }

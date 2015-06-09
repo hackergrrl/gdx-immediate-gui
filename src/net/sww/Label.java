@@ -8,12 +8,14 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Label extends Widget {
 
+    public static final int LINE_PADDING = 8;
+    String[] lines;
     private String text;
 
     public Label(String text) {
+        super(new Vector2(100, 24));
         this.text = text;
-        marginLeft = 4;
-        marginTop = marginBottom = 4;
+        lines = text.split("\n");
     }
 
     @Override
@@ -22,7 +24,10 @@ public class Label extends Widget {
         Vector2 pos = new Vector2(this.pos.x, Gdx.graphics.getHeight() - this.pos.y);
 
         batch.begin();
-        font.draw(batch, text, pos.x + marginLeft, pos.y - marginBottom);
+        float h = font.getBounds(text).height + LINE_PADDING;
+        for (int i=0; i < lines.length; i++) {
+            font.draw(batch, lines[i], pos.x + horizontalMargin, pos.y - verticalMargin - h * i);
+        }
         batch.end();
     }
 }

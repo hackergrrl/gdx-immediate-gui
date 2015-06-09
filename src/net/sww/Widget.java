@@ -5,17 +5,31 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public abstract class Widget {
 
-    public Widget parent;
+    final Widget parent;
+    Vector2 pos;
+    Vector2 size;
+    float horizontalMargin, verticalMargin;
+    List<Widget> contents = new LinkedList<Widget>();
 
-    public Vector2 pos = new Vector2();
-    public Vector2 size = new Vector2();
-    public float marginLeft = 3, marginTop = 3, marginRight = 3,marginBottom = 3;
+    public Widget(Vector2 size) {
+        this.parent = Gui.getCurrentWindow();
+        if (parent != null) {
+            parent.contents.add(this);
+        }
+
+        this.size = size;
+        this.horizontalMargin = 5;
+        this.verticalMargin = 5;
+    }
 
     public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, BitmapFont font) {}
 
     public Vector2 computeSize() {
-        return new Vector2(size.x + marginLeft + marginRight, size.y + marginTop + marginBottom);
+        return new Vector2(size.x + horizontalMargin * 2, size.y + verticalMargin * 2);
     }
 }
