@@ -36,16 +36,21 @@ public class Window extends Widget {
         // Convert to GL coords
         Vector2 pos = new Vector2(this.pos.x, Gdx.graphics.getHeight() - this.pos.y - size.y);
 
-        // Body
+        // Body + Outline
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.DARK_GRAY.cpy().mul(0.5f));
+        shapeRenderer.rect(pos.x, pos.y, size.x + horizontalMargin * 2, size.y - TITLE_HEIGHT);
+
         shapeRenderer.setColor(Color.DARK_GRAY);
-        shapeRenderer.rect(pos.x, pos.y, size.x + horizontalMargin * 2, size.y);
+        shapeRenderer.rect(pos.x + 1, pos.y + 1, size.x + horizontalMargin * 2 - 2, size.y - TITLE_HEIGHT - 1);
         shapeRenderer.end();
 
         // Titlebar
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(titleColour);
+        shapeRenderer.setColor(titleColour.cpy().mul(0.5f));
         shapeRenderer.rect(pos.x, pos.y + size.y - TITLE_HEIGHT, size.x + horizontalMargin * 2, TITLE_HEIGHT);
+        shapeRenderer.setColor(titleColour);
+        shapeRenderer.rect(pos.x + 1, pos.y + size.y - TITLE_HEIGHT + 1, size.x + horizontalMargin * 2 - 2, TITLE_HEIGHT - 2);
         shapeRenderer.end();
 
         // Title

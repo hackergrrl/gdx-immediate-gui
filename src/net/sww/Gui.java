@@ -68,10 +68,12 @@ public class Gui {
         for (Window win : windows) {
             x += win.size.x + 20;
         }
+        beginWindow(title, new Vector2(x, 10));
+    }
 
-        Window window = new Window(new Vector2(x, 10), new Vector2(100, 20));
+    public static void beginWindow(String title, Vector2 pos) {
+        Window window = new Window(pos, new Vector2(100, 20));
         window.title = title;
-
         currentWindow = window;
     }
 
@@ -99,7 +101,7 @@ public class Gui {
         for (int i=0; i < label.lines.length; i++) {
             label.size.x = Math.max(label.size.x, font.getBounds(label.lines[i]).width + 10);
         }
-        label.size.y = font.getBounds(text).height * label.lines.length + Label.LINE_PADDING * (label.lines.length - 1);
+        label.size.y = font.getBounds(text).height * label.lines.length + Label.LINE_PADDING * (label.lines.length - 1) + 5;
         label.pos = currentWindow.getCursorPos();
         label.size = currentWindow.addChild(label);
     }
