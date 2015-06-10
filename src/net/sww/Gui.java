@@ -124,6 +124,7 @@ public class Gui {
                 btn.pos.y,
                 btn.size.x + btn.size.x,
                 btn.size.y + btn.size.y);
-        return buttonPressedFrameCount == 1 && rect.contains(Gdx.input.getX(), Gdx.input.getY());
+        btn.hovering = rect.contains(Gdx.input.getX(), Gdx.input.getY());
+        return buttonPressedFrameCount == 1 && btn.hovering;
     }
 }

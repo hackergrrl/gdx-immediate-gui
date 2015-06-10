@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Button extends Widget {
 
+    public boolean hovering = false;
     private Color colour;
     private String caption;
 
@@ -23,13 +24,20 @@ public class Button extends Widget {
         // Convert to GL coords
         Vector2 pos = new Vector2(this.pos.x, Gdx.graphics.getHeight() - this.pos.y);
 
+        Color outline = colour.cpy().mul(1.15f);
+        Color bg = colour.cpy();
+        if (hovering) {
+            bg.mul(1.25f);
+            outline.mul(1.6f);
+        }
+
         float w = size.x - horizontalMargin * 2;
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(colour.cpy().mul(1.75f));
+        shapeRenderer.setColor(outline);
         shapeRenderer.rect(pos.x + horizontalMargin, pos.y - verticalMargin - size.y, w, size.y);
         shapeRenderer.end();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(colour);
+        shapeRenderer.setColor(bg);
         shapeRenderer.rect(pos.x + horizontalMargin + 1, pos.y - verticalMargin - size.y + 1, w - 2, size.y - 2);
         shapeRenderer.end();
 
