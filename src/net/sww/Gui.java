@@ -115,15 +115,14 @@ public class Gui {
 
     public static boolean button(String caption, Color colour) {
         Button btn = new Button(caption, colour);
-        btn.size.x = currentWindow.size.x;
         btn.pos = currentWindow.getCursorPos();
         btn.size = currentWindow.addChild(btn);
 
         Rectangle rect = new Rectangle(
                 btn.pos.x,
                 btn.pos.y,
-                btn.size.x + btn.size.x,
-                btn.size.y + btn.size.y);
+                btn.pos.x + btn.size.x,
+                btn.pos.y + btn.size.y);
         btn.hovering = rect.contains(Gdx.input.getX(), Gdx.input.getY());
         return buttonPressedFrameCount == 1 && btn.hovering;
     }
