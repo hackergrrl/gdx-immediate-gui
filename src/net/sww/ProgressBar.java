@@ -15,7 +15,7 @@ public class ProgressBar extends Widget {
     private String caption;
 
     public ProgressBar(String caption, Color colour, float value, float max, boolean showPercent) {
-        super(new Vector2(100, 16));
+        super(new Vector2(16, 16));
         this.caption = caption;
         this.colour = colour;
         this.value = value;
