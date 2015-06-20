@@ -121,8 +121,8 @@ public class Gui {
         Rectangle rect = new Rectangle(
                 btn.pos.x,
                 btn.pos.y,
-                btn.pos.x + btn.size.x,
-                btn.pos.y + btn.size.y);
+                btn.size.x,
+                btn.size.y);
         btn.hovering = rect.contains(Gdx.input.getX(), Gdx.input.getY());
         return buttonPressedFrameCount == 1 && btn.hovering;
     }
