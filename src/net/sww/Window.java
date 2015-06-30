@@ -54,11 +54,13 @@ public class Window extends Widget {
         shapeRenderer.end();
 
         // Title
-        batch.getTransformMatrix().idt();
-        batch.begin();
-        font.draw(batch, title, pos.x + 3, pos.y + size.y - 4);
-        font.draw(batch, title, 0, 0);
-        batch.end();
+        if (title != null) {
+            batch.getTransformMatrix().idt();
+            batch.begin();
+            font.draw(batch, title, pos.x + 3, pos.y + size.y - 4);
+            font.draw(batch, title, 0, 0);
+            batch.end();
+        }
 
         // Contents
         for (Widget widget : contents) {
@@ -67,7 +69,9 @@ public class Window extends Widget {
     }
 
     public void end(BitmapFont font) {
-        size.x = Math.max(font.getBounds(title).width + horizontalMargin * 2, size.x);
+        if (title != null) {
+            size.x = Math.max(font.getBounds(title).width + horizontalMargin * 2, size.x);
+        }
 
         float y = pos.y + TITLE_HEIGHT + verticalMargin;
         for (Widget widget : contents) {
