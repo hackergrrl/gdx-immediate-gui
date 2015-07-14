@@ -4,6 +4,17 @@
 
 ![screenshot](./media/screenshot.png)
 
+## Background
+
+This library follows the *immediate* rather than *retained* paradigm of UI
+building. You can read more about this idea
+[here](http://www.johno.se/book/imgui.html). This style is especially well
+suited to quickly creating game UIs with minimal effort.
+
+The library and API is greatly inspired by
+[imgui](https://github.com/ocornut/imgui).
+
+
 ## API
 
 `ImmGui` exposes a single static class for all functionality: `Gui`.
