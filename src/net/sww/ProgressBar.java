@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
-public class ProgressBar extends Widget {
+class ProgressBar extends Widget {
 
     private float value, max;
     private boolean showPercent;

@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class Widget {
+abstract class Widget {
 
     final Widget parent;
     Vector2 pos;

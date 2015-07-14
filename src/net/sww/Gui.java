@@ -41,7 +41,7 @@ public class Gui {
         generator.dispose(); // don't forget to dispose to avoid memory leaks!
     }
 
-    public static Window getCurrentWindow() {
+    static Window getCurrentWindow() {
         return currentWindow;
     }
 
@@ -88,7 +88,7 @@ public class Gui {
         currentWindow.size.x = w;
     }
 
-    public static void setWindowHeight(int h) {
+    static void setWindowHeight(int h) {
         currentWindow.size.y = h;
     }
 

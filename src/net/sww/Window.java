@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
-public class Window extends Widget {
+class Window extends Widget {
     public final int TITLE_HEIGHT = 17;
     public String title;
     public Color titleColour = Color.TEAL;
