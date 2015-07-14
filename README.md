@@ -1,4 +1,4 @@
-# ImmGui
+# gdx-immediate-gui
 > Immediate-style GUI for Java and libgdx, inspired by
 > [imgui](https://github.com/ocornut/imgui).
 
