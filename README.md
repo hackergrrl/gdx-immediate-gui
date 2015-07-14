@@ -2,7 +2,12 @@
 > Immediate-style GUI for Java and libgdx, inspired by
 > [imgui](https://github.com/ocornut/imgui).
 
+![screenshot](./media/screenshot.png)
+
 ## API
+
+`ImmGui` exposes a single static class for all functionality: `Gui`.
+
 
 ### Gui#init(SpriteBatch, ShapeRenderer)
 
