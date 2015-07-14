@@ -11,7 +11,7 @@ allprojects {
 
     version = '1.0.0'
     ext {
-        appName = 'ImmGui'
+        appName = 'gdx-immediate-gui'
         gdxVersion = '1.5.4'
     }
 
