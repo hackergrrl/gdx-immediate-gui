@@ -7,11 +7,9 @@ buildscript {
 }
 
 allprojects {
-    apply plugin: "eclipse"
-    apply plugin: "idea"
     apply plugin: "java"
 
-    version = '1.0'
+    version = '1.0.0'
     ext {
         appName = 'ImmGui'
         gdxVersion = '1.5.4'
@@ -29,6 +27,3 @@ allprojects {
     }
 }
 
-tasks.eclipse.doLast {
-    delete ".project"
-}
