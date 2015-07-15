@@ -9,10 +9,11 @@ buildscript {
 allprojects {
     apply plugin: "java"
 
-    version = '1.0.0'
+    version = '1.1.0'
     ext {
         appName = 'gdx-immediate-gui'
         gdxVersion = '1.5.4'
+        assetsDir = new File("assets");
     }
 
     repositories {
@@ -25,5 +26,20 @@ allprojects {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
     }
+
+  sourceSets {
+    main {
+      java {
+        srcDir 'src'
+      }
+    }
+  }
+
+  task dist(type: Jar) {
+      from files(sourceSets.main.output.classesDir)
+      from files(sourceSets.main.output.resourcesDir)
+      from {configurations.compile.collect {zipTree(it)}}
+      from files(project.assetsDir);
+  }
 }
 
