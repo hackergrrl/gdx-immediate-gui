@@ -12,7 +12,20 @@ class Window extends Widget {
     public String title;
     public Color titleColour = Color.TEAL;
 
+    // HACK
+    static float globalX = 0;
+
     private Vector2 cursor = new Vector2();
+
+    public Window(Vector2 size) {
+        super(size);
+
+        pos = new Vector2();
+        pos.x = globalX;
+        globalX += size.x + 20;
+
+        cursor = new Vector2(pos.x + horizontalMargin, pos.y + verticalMargin + TITLE_HEIGHT);
+    }
 
     public Window(Vector2 pos, Vector2 size) {
         super(size);

@@ -60,15 +60,14 @@ public class Gui {
         for (Window window : windows) {
             window.draw(spriteBatch, shapeRenderer, font);
         }
+        // TODO(sww): this hack is super gross -- fix me.
+        Window.globalX = 0;
 	}
 
     public static void beginWindow(String title) {
-        // TODO(sww): remove this hack?
-        int x = 10;
-        for (Window win : windows) {
-            x += win.size.x + 20;
-        }
-        beginWindow(title, new Vector2(x, 10));
+        Window window = new Window(new Vector2(100, 20));
+        window.title = title;
+        currentWindow = window;
     }
 
     public static void beginWindow(String title, Vector2 pos) {
