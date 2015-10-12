@@ -30,6 +30,8 @@ public class Gui {
 
     private static int buttonPressedFrameCount;
 
+    static int globalX;
+
     public static void init(SpriteBatch spriteBatch, ShapeRenderer shapeRenderer) {
         Gui.shapeRenderer = shapeRenderer;
         Gui.spriteBatch = spriteBatch;
@@ -54,14 +56,14 @@ public class Gui {
         } else {
             buttonPressedFrameCount = 0;
         }
+
+        globalX = 0;
 	}
 
 	public static void endFrame() {
         for (Window window : windows) {
             window.draw(spriteBatch, shapeRenderer, font);
         }
-        // TODO(sww): this hack is super gross -- fix me.
-        Window.globalX = 0;
 	}
 
     public static void beginWindow(String title) {
